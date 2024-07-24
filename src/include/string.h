@@ -15,6 +15,9 @@ struct string_t {
 // Make a new string with the data and the stdlib strlen function
 String string_new(const char* data);
 
+// Zero-allocate a new String with len length
+String string_alloc(usize len);
+
 // Make a new string with the data and a given length
 String string_from_parts(const char* data, usize len);
 
@@ -49,6 +52,9 @@ String string_from_i32(i32 num);
 // Open a file, read it and return the contents of the file as a string
 String string_slurp_file(const char* file_path);
 
+// Reverse a String
+String string_rev(const String* str);
+
 // Functions that return a number of sorts
 
 // Take a String and return its hash value using builtin hash function
@@ -56,11 +62,11 @@ u64 string_hash(const String* str);
 
 // Returns the index of the given character in the string. -1 if the character 
 // is not in the String
-ssize string_index_of(const String* str, char c);
+isize string_index_of(const String* str, char c);
 
 // Returns the index of the subtring in the string. -1 if the substring does not
 // exist in the given String
-ssize string_index_of_substr(const String* str, const String* needle);
+isize string_index_of_substr(const String* str, const String* needle);
 
 // Returns an integer value of the given String
 i32 string_to_i32(const String* str);

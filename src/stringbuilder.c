@@ -29,12 +29,13 @@ String string_builder_to_string(StringBuilder* sb) {
 
     String s = {
         .was_allocated = true,
-        .len = sb->len,
+        .len = sb->len-1,
+        // We don't want to include the null byte as part of the length
     };
 
-    s.data = malloc(s.len);
+    s.data = malloc(s.len+1);
     assert(s.data);
-    memcpy((char*)s.data, sb->data, sb->len);
+    memcpy((char*)s.data, sb->data, s.len+1);
 
     string_builder_free(sb);
 
@@ -58,9 +59,9 @@ void string_builder_append_cstr(StringBuilder* sb, const char* str) {
     }
 }
 
-void string_builder_append_string(StringBuilder* sb, String str) {
-    for (usize i = 0; i < str.len; ++i) {
-        string_builder_append_char(sb, str.data[i]);
+void string_builder_append_string(StringBuilder* sb, const String* str) {
+    for (usize i = 0; i < str->len; ++i) {
+        string_builder_append_char(sb, str->data[i]);
     }
 }
 
